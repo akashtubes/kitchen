@@ -79,12 +79,21 @@
             // Fragment exists
             let found = false;
             let v = window.location.hash.substr(1);
-            for(var idx in videos) {
+            if (v == "ILtJreY4QxC") {
+                let idx = Math.round(Math.random() * videos.length);
                 let video = videos[idx];
-                if (v == video.link) {
-                    window.location.href = "https://youtu.be/" + v;
+                if (video) {
+                    window.location.href = "https://youtu.be/" + video.link;
                     found = true;
-                    break;
+                }
+            } else {
+                for(var idx in videos) {
+                    let video = videos[idx];
+                    if (v == video.link) {
+                        window.location.href = "https://youtu.be/" + v;
+                        found = true;
+                        break;
+                    }
                 }
             }
             if (!found) {
@@ -95,7 +104,7 @@
         }
         function addVideo(target, id) {
             var ifrm = document.createElement("iframe");
-            ifrm.setAttribute("src", "http://www.youtube.com/embed/" + id);
+            ifrm.setAttribute("src", "https://www.youtube.com/embed/" + id);
             ifrm.setAttribute("allowfullscreen", "");
             ifrm.style.frameBorder = 0;
             ifrm.style.width = "300px";
