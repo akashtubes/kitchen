@@ -1,0 +1,123 @@
+<html>
+<body>
+    <style>
+    .if-container {
+        padding-top: 2px;
+        padding-bottom: 100px;
+        padding-left: 15px;
+        padding-right: 15px;
+        background: #0cbd96;
+        border: 1px solid green;
+    }
+    .if-title {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #9b0909;
+        background: #95ffe8;
+        text-align: center;
+    }
+    .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: #efefef;
+    }
+    .flex-container > div {
+        margin: 10px;
+    }
+    .page-title {
+        font-size: 50px;
+        color: #fffdfd;
+        background: #00227b;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-left: 100px;
+    }
+    body, html {
+        background: #00227b;
+    }
+    </style>
+    <div class='page-title'>
+            Akash Tube's Kitchen
+    </div>
+    <div id='content' class='flex-container'>
+    </div>
+    <script>
+        var videos = [
+            {link: "ILtJreB4wvY", title: "Remedy for indigestion"},
+            {link: "dSJkqAwEpGk", title: "Microwaved Appalam"},
+            {link: "jWGzLpm57Z4", title: "Potato Pancakes"},
+            {link: "Tg-8WVX_pUA", title: "Banana Milkshake"},
+            {link: "BwC5B0BjAwE", title: "Remedy for cough or cold"},
+            {link: "tWwOETN0Hes", title: "Veggie Pizza"},
+            {link: "A0ZUJ_8pEkY", title: "Pan Fry Crispy Potatoes Chips"},
+            {link: "5zwh_6P8K0Q", title: "Mango Avacado Salsa Recipe"},
+            {link: "uUG5kh99dG8", title: "Penne Pasta Recipe by Chef Akash"},
+            {link: "6ZwmUNCjnFk", title: "Eggless Moist Carrot Cake"},
+            {link: "A9JjKF65R_w", title: "Besan Ka Cheela"},
+            {link: "e_ajmWddAJw", title: "Simple Butter Popcorn"},
+            {link: "xaTckG6j5Xo", title: "Onion Chutney Recipe"},
+            {link: "jlA3mTWaeMc", title: "Orange Jelly"},
+            {link: "qjombLj9RNc", title: "Bread Pizza Recipe"},
+            {link: "QMVvbMPs-SY", title: "Eggless Lemon Cubcake"},
+            {link: "3D3Sb1WXYUA", title: "How to cut mango"},
+            {link: "nQhwZXcIRLA", title: "Maple - Glazed Carrots"},
+            {link: "4v1_-JmomPU", title: "Homemade Fluffy Pancake"},
+            {link: "GwaE4rw-3UM", title: "Garlic Chutney"},
+            {link: "Y4QxCjgR9JI", title: "Strawberry Popsicles"},
+            ];
+        function render_page() {
+            let element = document.querySelector("#content");
+            for(var idx in videos) {
+                let video = videos[idx];
+                let _if = addWrapper(element, video);
+                addVideo(_if, video.link);
+            }
+        }
+        if(window.location.hash) {
+            // Fragment exists
+            let found = false;
+            let v = window.location.hash.substr(1);
+            for(var idx in videos) {
+                let video = videos[idx];
+                if (v == video.link) {
+                    window.location.href = "https://youtu.be/" + v;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                render_page();
+            }
+        } else {
+            render_page();
+        }
+        function addVideo(target, id) {
+            var ifrm = document.createElement("iframe");
+            ifrm.setAttribute("src", "http://www.youtube.com/embed/" + id);
+            ifrm.setAttribute("allowfullscreen", "");
+            ifrm.style.frameBorder = 0;
+            ifrm.style.width = "300px";
+            ifrm.style.height = "200px";
+            target.appendChild(ifrm);
+        }
+
+        function addTitle(target, video) {
+            var _if = document.createElement("div");
+            _if.setAttribute("class", "if-title");
+            _if.innerHTML = video.title;
+            target.appendChild(_if);
+        }
+        function addWrapper(target, video) {
+            var _if = document.createElement("div");
+            _if.setAttribute("class", "if-container");
+            _if.style.width = "300px";
+            _if.style.height = "200px";
+            target.appendChild(_if);
+            addTitle(_if, video)
+            return _if
+        }
+    </script>
+</body>
+</html>
