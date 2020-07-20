@@ -18,6 +18,15 @@
         background: #95ffe8;
         text-align: center;
     }
+    .if-u-tube-link {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #9b0909;
+        background: #95ffe8;
+        text-align: center;
+    }
     .page-title  > a  {
         color: #fffdfd;
     }
@@ -52,6 +61,7 @@
     </div>
     <script>
         var videos = [
+            {link: "VOMNbbtWWwE", title: "Bread Pudding"},
             {link: "akkujGfK-ws", title: "Aloo Tikki"},
             {link: "ILtJreB4wvY", title: "Remedy for indigestion"},
             {link: "dSJkqAwEpGk", title: "Microwaved Appalam"},
@@ -79,8 +89,7 @@
             let element = document.querySelector("#content");
             for(var idx in videos) {
                 let video = videos[idx];
-                let _if = addWrapper(element, video);
-                addVideo(_if, video.link);
+                let _if = addWrapper(element, video, createVideoIframe(video.link));
             }
         }
         if(window.location.hash) {
@@ -110,14 +119,14 @@
         } else {
             render_page();
         }
-        function addVideo(target, id) {
+        function createVideoIframe(id) {
             var ifrm = document.createElement("iframe");
             ifrm.setAttribute("src", "https://www.youtube.com/embed/" + id);
             ifrm.setAttribute("allowfullscreen", "");
             ifrm.style.frameBorder = 0;
             ifrm.style.width = "300px";
             ifrm.style.height = "200px";
-            target.appendChild(ifrm);
+            return ifrm;
         }
 
         function addTitle(target, video) {
@@ -126,13 +135,21 @@
             _if.innerHTML = video.title;
             target.appendChild(_if);
         }
-        function addWrapper(target, video) {
+        function addUtubeLink(target, video) {
+            var _if = document.createElement("div");
+            _if.setAttribute("class", "if-u-tube-link");
+            _if.innerHTML = "<a target=_blank href='https://youtu.be/" + video.link  + "'>"  + "Watch On YouTube" + "</a>";
+            target.appendChild(_if);
+        }
+        function addWrapper(target, video, iframe) {
             var _if = document.createElement("div");
             _if.setAttribute("class", "if-container");
             _if.style.width = "300px";
             _if.style.height = "200px";
             target.appendChild(_if);
             addTitle(_if, video)
+            _if.appendChild(iframe)
+            addUtubeLink(_if, video)
             return _if
         }
     </script>
